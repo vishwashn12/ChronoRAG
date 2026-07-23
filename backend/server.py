@@ -58,10 +58,15 @@ def query(payload: QueryRequest):
 
 
 # --- Optional: serve the built frontend from this same process ---
-# After running `npm run build` inside chronorag-ui/, its output lands in
-# chronorag-ui/dist/. Point FRONTEND_DIST at that folder (env var or edit
+# After running `npm run build` inside frontend/, its output lands in
+# frontend/dist/. Point FRONTEND_DIST at that folder (env var or edit
 # below) to serve the whole app from http://localhost:8000 with no
 # separate Vite server or CORS needed.
-FRONTEND_DIST = os.getenv("FRONTEND_DIST", "../frontend/dist")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_FRONTEND_DIST = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend", "dist"))
+FRONTEND_DIST = os.getenv("FRONTEND_DIST", DEFAULT_FRONTEND_DIST)
+
 if os.path.isdir(FRONTEND_DIST):
     app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
+else:
+    print(f"Warning: Frontend dist directory not found at {FRONTEND_DIST}")
