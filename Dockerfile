@@ -20,7 +20,6 @@ RUN cd frontend && npm run build
 
 # Copy Backend code
 COPY backend/ ./backend/
-COPY .env .env
 
 # Run document ingestion to pre-populate database
 RUN python backend/ingest.py
