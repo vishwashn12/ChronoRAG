@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y curl gnupg \
     && rm -rf /var/lib/apt-get/lists/*
 
 WORKDIR /app
+ENV PYTHONPATH=/app/backend
 
 # Install Python dependencies
 COPY requirements.txt .

@@ -13,10 +13,14 @@ as static files, so you can ship ONE process instead of two.
 """
 
 import os
+import sys
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+# Ensure backend directory is in sys.path for internal imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from pipeline import execute_chronorag_pipeline
 
